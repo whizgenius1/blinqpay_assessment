@@ -1,12 +1,15 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:blinqpay_assesment/model/post_model.dart';
 import 'package:blinqpay_assesment/model/user_model.dart';
 import 'package:blinqpay_assesment/service/post_service.dart';
 import 'package:blinqpay_assesment/service/user_service.dart';
 import 'package:blinqpay_assesment/view/user_detail_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cached_video_player/cached_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:video_cached_player/video_cached_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class PostsScreen extends StatelessWidget {
@@ -145,7 +148,7 @@ class _VideoPlayerWidgetState extends ConsumerState<VideoPlayerWidget> {
   @override
   void dispose() {
     super.dispose();
-    controller.dispose();
+    Platform.isIOS ? controller.pause() : controller.dispose();
   }
 
   @override
@@ -158,16 +161,29 @@ class _VideoPlayerWidgetState extends ConsumerState<VideoPlayerWidget> {
             return VisibilityDetector(
               key: ObjectKey(controller),
               onVisibilityChanged: (visibility) {
-                if (visibility.visibleFraction < 0.5 && mounted) {
-                  controller.pause(); //pausing  functionality
-                } else {
-                  controller.play();
+                if (Platform.isAndroid) {
+                  log('${visibility.visibleFraction}');
+                  if (visibility.visibleFraction < 0.5 && mounted) {
+                    controller.pause(); //pausing  functionality
+                  } else {
+                    controller.play();
+                  }
+                }
+                if (Platform.isIOS) {
+                  log('${visibility.visibleFraction}');
+                  if (visibility.visibleFraction < 0.5 && mounted) {
+                    controller.pause(); //pausing  functionality
+                  } else {
+                    controller.play();
+                  }
                 }
               },
-              child: AspectRatio(
-                aspectRatio: controller.value.aspectRatio,
-                child: CachedVideoPlayer(controller),
-              ),
+              child: controller.value.isInitialized
+                  ? AspectRatio(
+                      aspectRatio: controller.value.aspectRatio,
+                      child: CachedVideoPlayer(controller),
+                    )
+                  : Image.asset('assets/loading.gif'),
             );
           } else {
             return const Center(

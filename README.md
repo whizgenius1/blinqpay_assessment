@@ -1,16 +1,26 @@
 # blinqpay_assesment
 
-A new Flutter project.
+BlinqPay Accessment
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+- [Link to download the application](https://drive.google.com/file/d/1AcIiu3hR8tdApA_P3qOH3-Xy0FnqjCAw/view?usp=sharing)
 
-A few resources to get you started if this is your first Flutter project:
+- [Link to Github repo(Master branch)](https://github.com/whizgenius1/blinqpay_assessment.git)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+The app consist of 3 screens majorly
+The Users Screen
+The Posts Screen
+The User Details Screen (can be reached when you tap on the username on the Post screen and also on the user item on the user screen)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+I used cached network image to save the image in memory, but most of the image URL returns 404
+I also used cache network video to cache the video in memory
+
+Async notifier provider was used to fetch the data, this is to prevent the reloading of data anytime the user come into any of the main screen(user and post screen), and also to expose the data to the applicationn so they can be access when needed, ()
+For animation, I used Hero animation (nothing fancy), 
+
+I did not bother to use isolate because it was not neccessary, since the recequest was not much and it was not putting a strain on the device
+
+Thank you 
+
+

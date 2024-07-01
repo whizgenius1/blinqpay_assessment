@@ -41,7 +41,8 @@ dependencies:
   cloud_firestore: ^5.0.2
   cached_network_image: ^3.3.1
   visibility_detector: ^0.4.0+2
-  cached_video_player: ^2.0.4
+  # cached_video_player: ^2.0.4
+  video_cached_player: ^2.4.9+1
   flutter_dotenv: ^5.1.0
 
 dev_dependencies:
@@ -61,6 +62,7 @@ dev_dependencies:
 
 flutter_launcher_icons:
   ios: true
+  android: true
   remove_alpha_ios: true
   image_path: "assets/icon.png"
 

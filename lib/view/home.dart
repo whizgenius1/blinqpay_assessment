@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:blinqpay_assesment/states/theme_state.dart';
 import 'package:blinqpay_assesment/view/posts_screen.dart';
 import 'package:blinqpay_assesment/view/users_screen.dart';
@@ -42,43 +44,46 @@ class _HomeScreenState extends State<HomeScreen> {
           })
         ],
       ),
-      bottomNavigationBar: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          ...List.generate(
-              _bottomNavs.length,
-              (index) => Expanded(
-                      child: InkWell(
-                    onTap: () => setState(() => this.index = index),
-                    child: SizedBox(
-                      height: 45,
-                      child: Consumer(builder: (_, ref, child) {
-                        return Column(
-                          children: [
-                            Icon(
-                              _bottomNavs[index]['icon'],
-                              color: _bottomNavs[index]['index'] == this.index
-                                  ? Colors.blue
-                                  : ref.read(darkModeProvider)
-                                      ? Colors.grey
-                                      : null,
-                            ),
-                            Text(
-                              _bottomNavs[index]['name'],
-                              style: TextStyle(
-                                  color:
-                                      _bottomNavs[index]['index'] == this.index
-                                          ? Colors.blue
-                                          : ref.read(darkModeProvider)
-                                              ? Colors.grey
-                                              : null),
-                            )
-                          ],
-                        );
-                      }),
-                    ),
-                  ))),
-        ],
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.only(bottom: Platform.isIOS ? 20.0 : 0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            ...List.generate(
+                _bottomNavs.length,
+                (index) => Expanded(
+                        child: InkWell(
+                      onTap: () => setState(() => this.index = index),
+                      child: SizedBox(
+                        height: 45,
+                        child: Consumer(builder: (_, ref, child) {
+                          return Column(
+                            children: [
+                              Icon(
+                                _bottomNavs[index]['icon'],
+                                color: _bottomNavs[index]['index'] == this.index
+                                    ? Colors.blue
+                                    : ref.read(darkModeProvider)
+                                        ? Colors.grey
+                                        : null,
+                              ),
+                              Text(
+                                _bottomNavs[index]['name'],
+                                style: TextStyle(
+                                    color: _bottomNavs[index]['index'] ==
+                                            this.index
+                                        ? Colors.blue
+                                        : ref.read(darkModeProvider)
+                                            ? Colors.grey
+                                            : null),
+                              )
+                            ],
+                          );
+                        }),
+                      ),
+                    ))),
+          ],
+        ),
       ),
       body: Center(child: _body[index]),
     );

@@ -11,4 +11,4 @@ import Flutter
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }
-Exception;    NSException *    "Configuration fails. It may be caused by an invalid GOOGLE_APP_ID in GoogleService-Info.plist or set in the customized options.";    0x0000600000c9a940
+// Exception;    NSException *    "Configuration fails. It may be caused by an invalid GOOGLE_APP_ID in GoogleService-Info.plist or set in the customized options.";    0x0000600000c9a940
