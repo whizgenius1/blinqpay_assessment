@@ -4,33 +4,35 @@ import 'package:blinqpay_assesment/states/theme_state.dart';
 import 'package:blinqpay_assesment/view/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 //import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  if (Platform.isAndroid) {
-    await Firebase.initializeApp(
-        options: const FirebaseOptions(
-      apiKey: 'AIzaSyCVATVkgxyMyy8mnQvf0_rSHbwnO2d4iCg',
-      appId: 'com.blinqpay.blinqpost',
-      messagingSenderId: '',
-      projectId: 'blinqpost',
-      storageBucket: 'blinqpost.appspot.com',
-    ));
-  }
 
-  if (Platform.isIOS) {
-    await Firebase.initializeApp(
-        options: const FirebaseOptions(
-      apiKey: 'AIzaSyBDNzmaHZYiPrTfV7Y6yQ40IsX_t-iwWYA',
-      appId: 'com.blinqpay.blinqpost',
-      messagingSenderId: '',
-      projectId: 'blinqpost',
-      storageBucket: 'blinqpost.appspot.com',
-    ));
-  }
+  await dotenv.load(fileName: ".env");
+
+  await Firebase.initializeApp(
+    options: (Platform.isIOS)
+        ? FirebaseOptions(
+            iosClientId: dotenv.env['IOS_CLIENT_ID'] ?? '',
+            iosBundleId: dotenv.env['IOS_BUNDLE_ID'] ?? '',
+            apiKey: dotenv.env['IOS_API_KEY'] ?? '',
+            appId: dotenv.env['APP_ID'] ?? '',
+            messagingSenderId: '',
+            projectId: dotenv.env['PROJECT_ID'] ?? '',
+            storageBucket: dotenv.env['STORAGE_BUCKET'] ?? '',
+          )
+        : FirebaseOptions(
+            apiKey: dotenv.env['ANDROID_API_KEY'] ?? '',
+            appId: dotenv.env['APP_ID'] ?? '',
+            messagingSenderId: '',
+            projectId: dotenv.env['PROJECT_ID'] ?? '',
+            storageBucket: dotenv.env['STORAGE_BUCKET'] ?? '',
+          ),
+  );
 
   runApp(const ProviderScope(child: MyApp()));
 }
